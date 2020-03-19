@@ -82,8 +82,8 @@ function listMajors(auth) {
   const sheets = google.sheets({ version: 'v4', auth })
   sheets.spreadsheets.values.get(
     {
-      spreadsheetId: '1ux7ttNVuTbMaIfcW4t8tZe9Ii17F-3khXjHR8Il2dGI',
-      range: 'A:O',
+      spreadsheetId: '1X3ni2wOdyctOmDYlb3zD6kJc8gHqMEEnnA1DiGosyHc',
+      range: 'A:E',
     },
     (err, res) => {
       if (err) return console.log('The API returned an error: ' + err)
@@ -98,34 +98,34 @@ function listMajors(auth) {
 
       const keys = toJson.map(item => {
         return {
-          'Shipment No.:': item['Shipment No.:'],
-          'Delivery Order No.:': item['Delivery Order No.:'],
+          'Team Number': item['Team Number'],
+          Sensei: item['Sensei'],
         }
       })
       const grouped = groupByKeys(keys, toJson)
       console.log('grouped')
       grouped.map(group => {
         console.log('---------')
-        console.log(group.key)
-        console.log(group.items)
+        console.log('key', group.key)
+        console.log('items', group.items)
       })
     },
   )
 
-  sheets.spreadsheets.values.update(
-    {
-      spreadsheetId: '1ux7ttNVuTbMaIfcW4t8tZe9Ii17F-3khXjHR8Il2dGI',
-      valueInputOption: 'USER_ENTERED',
-      range: 'Sheet1!O2',
-      requestBody: {
-        majorDimension: 'COLUMNS',
-        values: [['pending', 'done', 'todo', 'whatevs', 'partially delivered']],
-      },
-    },
-    (err, res) => {
-      console.log('update ---------')
-      if (err) return console.log('The API returned an error: ' + err)
-      console.log(res)
-    },
-  )
+  //   sheets.spreadsheets.values.update(
+  //     {
+  //       spreadsheetId: '1ux7ttNVuTbMaIfcW4t8tZe9Ii17F-3khXjHR8Il2dGI',
+  //       valueInputOption: 'USER_ENTERED',
+  //       range: 'Sheet1!O2',
+  //       requestBody: {
+  //         majorDimension: 'COLUMNS',
+  //         values: [['pending', 'done', 'todo', 'whatevs', 'partially delivered']],
+  //       },
+  //     },
+  //     (err, res) => {
+  //       console.log('update ---------')
+  //       if (err) return console.log('The API returned an error: ' + err)
+  //       console.log(res)
+  //     },
+  //   )
 }
